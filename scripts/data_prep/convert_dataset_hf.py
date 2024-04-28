@@ -220,19 +220,19 @@ c4constants.splits["val_xxsmall"] = DataSplitConstants(
 )
 
 bc_constants = DatasetConstants(
-    chars_per_sample=45161,
+    chars_per_sample=44414,
     chars_per_token=4,  # OpenAI estimate
 )
 bc_constants.splits["train"] = DataSplitConstants(
     hf_split="train",
     folder_split="train",
-    raw_samples=133093,
+    raw_samples=13_525_621,
     truncated_samples=None,
 )
 bc_constants.splits["validation"] = DataSplitConstants(
     hf_split="validation",
     folder_split="val",
-    raw_samples=231,
+    raw_samples=10_000,
     truncated_samples=None,
 )
 
