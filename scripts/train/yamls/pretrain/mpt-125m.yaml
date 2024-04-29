@@ -15,13 +15,13 @@ model:
   n_layers: 12
   expansion_ratio: 4
   max_seq_len: ${max_seq_len}
-  vocab_size: 50368
+  vocab_size: 50432
   attn_config:
     attn_impl: flash
 
 # Tokenizer
 tokenizer:
-  name: EleutherAI/gpt-neox-20b
+  name: /mnt/spinning/beancounter_202402/bc-tokenizer-50_432
   kwargs:
     model_max_length: ${max_seq_len}
 
