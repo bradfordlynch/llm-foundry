@@ -17,7 +17,8 @@ sudo docker run --runtime=nvidia \
     -v /home/bl/llm-foundry/:/home/mosaicml/llm-foundry/ \
     --user mosaicml \
     -t \
-    -d mosaicml/pytorch
+    --ipc=host \
+    -d mosaicml/llm-foundry:2.2.1_cu121_flash2-latest
 ```
 
 Once the base image is running, we need to attach to the container and finish setup:
@@ -26,6 +27,10 @@ sudo docker exec -it {CONTAINER_ID} bash
 ```
 
 Mosaic's setup is simple and available [here](https://github.com/mosaicml/llm-foundry?tab=readme-ov-file#with-docker-recommended).
+
+```bash
+pip install -e ".[gpu]"
+```
 
 ## Conversion of HF Dataset to MDS Format
 The MDS format provides a variety of performance enhancements including fast resumption of training. The dataset can be converted to MDS via the following command:
@@ -52,7 +57,7 @@ composer train/train.py \
   data_local=/mnt/spinning/beancounter_202402/mml_beancounter_sample \
   train_loader.dataset.split=train \
   eval_loader.dataset.split=validation \
-  max_duration=10ba \
+  max_duration=1ep \
   eval_interval=0 \
   save_folder=/mnt/spinning/mpt-125m
 ```
