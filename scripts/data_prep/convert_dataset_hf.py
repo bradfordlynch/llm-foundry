@@ -231,7 +231,7 @@ bc_constants.splits["train"] = DataSplitConstants(
 )
 bc_constants.splits["validation"] = DataSplitConstants(
     hf_split="validation",
-    folder_split="val",
+    folder_split="validation",
     raw_samples=10_000,
     truncated_samples=None,
 )
