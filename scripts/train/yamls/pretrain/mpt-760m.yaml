@@ -107,7 +107,7 @@ callbacks:
 # loggers:
 #   wandb: {}
 
-save_interval: 100ba
+save_interval: 250ba
 save_num_checkpoints_to_keep: 3
 
 # Checkpoint to local filesystem or remote object store
