@@ -61,3 +61,7 @@ composer train/train.py \
   eval_interval=0 \
   save_folder=/mnt/spinning/mpt-125m
 ```
+
+```
+composer train/train.py   train/yamls/pretrain/mpt-125m.yaml   data_local=/mnt/spinning/beancounter_202402/mml_beancounter   train_loader.dataset.split=train   eval_loader.dataset.split=validation   max_duration=5000ba   eval_interval=250ba   save_folder=/mnt/spinning/mpt-125m
+```

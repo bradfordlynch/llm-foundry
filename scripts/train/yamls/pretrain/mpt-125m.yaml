@@ -110,6 +110,11 @@ callbacks:
 save_interval: 250ba
 save_num_checkpoints_to_keep: 3
 
+integrations:
+  - integration_type: wandb
+    project: mpt-test-125m
+    entity: blevy
+
 # Checkpoint to local filesystem or remote object store
 # save_interval: 500ba
 # save_num_checkpoints_to_keep: 1  # Important, this cleans up checkpoints saved to DISK
