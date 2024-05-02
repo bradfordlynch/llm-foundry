@@ -65,3 +65,11 @@ composer train/train.py \
 ```
 composer train/train.py   train/yamls/pretrain/mpt-125m.yaml   data_local=/mnt/spinning/beancounter_202402/mml_beancounter   train_loader.dataset.split=train   eval_loader.dataset.split=validation   max_duration=5000ba   eval_interval=250ba   save_folder=/mnt/spinning/mpt-125m
 ```
+
+```
+python inference/hf_generate.py \
+  --name_or_path /mnt/spinning/mpt-125m-hf \
+  --max_new_tokens 256 \
+  --prompts \
+    "The answer to life, the universe, and happiness is"
+```
