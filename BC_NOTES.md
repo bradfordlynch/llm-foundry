@@ -13,8 +13,8 @@ Once Docker and the Container Toolkit are installed, we can launch a container u
 ```bash
 sudo docker run --runtime=nvidia \
     --gpus all \
-    -v /mnt/spinning/:/mnt/spinning \
-    -v /home/bl/llm-foundry/:/home/mosaicml/llm-foundry/ \
+    -v /mnt/data/:/mnt/spinning \
+    -v /home/bl/Documents/llm-foundry/:/home/mosaicml/llm-foundry/ \
     --user mosaicml \
     -t \
     --ipc=host \
@@ -37,12 +37,13 @@ The MDS format provides a variety of performance enhancements including fast res
 ```bash
 python data_prep/convert_dataset_hf.py \
     --dataset /mnt/spinning/beancounter_202402/beancounter/ \
-    --data_subset full \
+    --data_subset default \
     --out_root /mnt/spinning/beancounter_202402/mml_beancounter \
     --splits train validation \
     --concat_tokens 2048 \
-    --tokenizer /mnt/spinning/beancounter_202402/bc-tokenizer-50_432/ \
-    --eos_text '<|endoftext|>'
+    --tokenizer EleutherAI/gpt-neox-20b \
+    --eos_text '<|endoftext|>' \
+    --compression zstd:7
 ```
 **NB** A few things to keep in mind:
 1. LLM-Foundry expects various dataset-specific constants to be defined in the `data_prep/convert_dataset_hf.py` script. If these are not defined then the script will fail.
@@ -57,13 +58,20 @@ composer train/train.py \
   data_local=/mnt/spinning/beancounter_202402/mml_beancounter_sample \
   train_loader.dataset.split=train \
   eval_loader.dataset.split=validation \
-  max_duration=1ep \
-  eval_interval=0 \
+  max_duration=2ep \
+  eval_interval=250ba \
   save_folder=/mnt/spinning/mpt-125m
 ```
 
 ```
 composer train/train.py   train/yamls/pretrain/mpt-125m.yaml   data_local=/mnt/spinning/beancounter_202402/mml_beancounter   train_loader.dataset.split=train   eval_loader.dataset.split=validation   max_duration=5000ba   eval_interval=250ba   save_folder=/mnt/spinning/mpt-125m
+```
+
+```
+python inference/convert_composer_to_hf.py \
+  --composer_path /mnt/spinning/mpt-125m/ep0-ba250-rank0.pt \
+  --hf_output_path /mnt/spinning/mpt-125m-hf \
+  --output_precision bf16
 ```
 
 ```

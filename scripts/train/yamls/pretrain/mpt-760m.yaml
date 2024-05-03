@@ -21,7 +21,7 @@ model:
 
 # Tokenizer
 tokenizer:
-  name: /mnt/spinning/beancounter_202402/bc-tokenizer-50_432
+  name: EleutherAI/gpt-neox-20b
   kwargs:
     model_max_length: ${max_seq_len}
 
